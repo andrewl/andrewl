@@ -8,7 +8,7 @@
           {{ $pages := .Pages }}
           {{ if gt (len $pages) 0 }}
             {{ $randomPage := index $pages (mod (now.UnixNano) (len $pages)) }}
-            <img src="{{ $randomPage.Params.image }}" alt="{{ .Page.Title }}">
+            <img src="{{ $randomPage.Params.thumbnail }}" alt="{{ .Page.Title }}">
           {{ end }}
           <h2>{{ .Page.Title }}</h2>
           <p>{{ .Count }} photos</p>

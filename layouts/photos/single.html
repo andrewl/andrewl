@@ -1,7 +1,5 @@
 {{ define "main" }}
   <article>
-    <h1>{{ .Title }}</h1>
-
     <figure>
       <img src="{{ .Params.image }}" alt="{{ .Title }}">
       {{ with .Params.flickr_id }}
@@ -12,16 +10,9 @@
         </figcaption>
       {{ end }}
     </figure>
-
     <div class="description">
       {{ .Content }}
     </div>
-
-    <p>Tags:
-      {{ range .Params.tags }}
-        <a href="{{ "tags/" | relURL }}{{ . | urlize }}">{{ . }}</a>{{ if not (eq (add (index $.Params.tags 0) "") .) }}, {{ end }}
-      {{ end }}
-    </p>
   </article>
 {{ end }}
 

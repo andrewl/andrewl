@@ -32,6 +32,7 @@ type Photo struct {
 	URLLarge  string `json:"url_l"`
 	URLMed    string `json:"url_m"`
 	URLSmall  string `json:"url_s"`
+	URLSquare string `json:"url_q"`
 	Tags      string `json:"tags"`
 	DateTaken string `json:"datetaken"`
 }
@@ -88,7 +89,7 @@ func main() {
 
 	page := 1
 	for {
-		url := fmt.Sprintf("%s&api_key=%s&user_id=%s&privacy_filter=1&extras=url_l,url_m,url_s,tags,description,date_taken&per_page=500&page=%d",
+		url := fmt.Sprintf("%s&api_key=%s&user_id=%s&privacy_filter=1&extras=url_q,url_l,url_m,url_s,tags,description,date_taken&per_page=500&page=%d",
 			apiURL, apiKey, userID, page)
 
 		resp, err := http.Get(url)
@@ -188,11 +189,12 @@ title: "%s"
 date: %s
 flickr_id: %s
 tags: [%s]
+thumbnail: %s
 image: %s
 ---
 
 %s
-`, escapeQuotes(p.Title), date, p.ID, strings.Join(quotedTags, ", "), chooseImage(p), p.Description.Content)
+`, escapeQuotes(p.Title), date, p.ID, strings.Join(quotedTags, ", "), chooseThumbnail(p), chooseImage(p), p.Description.Content)
 
 	err := ioutil.WriteFile(filename, []byte(content), 0644)
 	if err != nil {
@@ -206,6 +208,19 @@ func escapeQuotes(s string) string {
 	return strings.ReplaceAll(s, `"`, "'")
 }
 
+func chooseThumbnail(p Photo) string {
+	if p.URLSquare != "" {
+		return p.URLSquare
+	}
+	if p.URLSmall != "" {
+		return p.URLSmall
+	}
+	if p.URLMed != "" {
+		return p.URLMed
+	}
+	return p.URLLarge
+}
+
 func chooseImage(p Photo) string {
 	if p.URLLarge != "" {
 		return p.URLLarge
@@ -213,5 +228,8 @@ func chooseImage(p Photo) string {
 	if p.URLMed != "" {
 		return p.URLMed
 	}
-	return p.URLSmall
+	if p.URLSmall != "" {
+		return p.URLSmall
+	}
+	return p.URLSquare
 }
