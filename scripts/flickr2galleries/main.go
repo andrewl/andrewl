@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -9,15 +10,14 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
-	"bufio"
 )
 
 type FlickrResponse struct {
 	Photos struct {
-		Page    int `json:"page"`
-		Pages   int `json:"pages"`
-		Perpage int `json:"perpage"`
-		Total   int `json:"total"`
+		Page    int     `json:"page"`
+		Pages   int     `json:"pages"`
+		Perpage int     `json:"perpage"`
+		Total   int     `json:"total"`
 		Photo   []Photo `json:"photo"`
 	} `json:"photos"`
 	Stat string `json:"stat"`
@@ -150,58 +150,77 @@ func writeMarkdown(outDir string, p Photo) {
 		return
 	}
 
-	// slug from title or fallback to photo ID
-	slug := sanitizeSlug(p.Title)
-	if slug == "" {
-		slug = p.ID
-	}
-
-	date := p.DateTaken
-	if date == "" {
-		date = time.Now().Format("2006-01-02")
-	}
-
-	// ensure unique filename
-	filename := filepath.Join(outDir, slug+".md")
-	uniqueFilename := filename
-	i := 1
-	for {
-		if _, err := os.Stat(uniqueFilename); os.IsNotExist(err) {
-			break // file does not exist → good to use
-		}
-		uniqueFilename = filepath.Join(outDir, fmt.Sprintf("%s-%d.md", slug, i))
-		i++
-	}
-	filename = uniqueFilename
-
-
-	// turn space-separated tags into comma-separated list
+	// turn tags into array
 	tagList := strings.Split(strings.TrimSpace(p.Tags), " ")
-	quotedTags := []string{}
-	for _, t := range tagList {
-		if t != "" {
-			quotedTags = append(quotedTags, fmt.Sprintf("%q", t))
-		}
-	}
 
-	content := fmt.Sprintf(`---
+	for _, t := range tagList {
+		if t == "" {
+			continue
+		}
+		gallery := sanitizeSlug(t) // folder name
+
+		// ensure gallery dir exists
+		galleryDir := filepath.Join(outDir, gallery)
+		err := os.MkdirAll(galleryDir, 0755)
+		if err != nil {
+			panic(err)
+		}
+
+		// --- Step 1: ensure _index.md exists in the gallery folder ---
+		indexPath := filepath.Join(galleryDir, "_index.md")
+		if _, err := os.Stat(indexPath); os.IsNotExist(err) {
+			indexContent := fmt.Sprintf(`---
+title: "%s"
+---
+`, strings.Title(gallery))
+			if err := os.WriteFile(indexPath, []byte(indexContent), 0644); err != nil {
+				panic(err)
+			}
+		}
+		// safe slug for file
+		slug := sanitizeSlug(p.Title)
+		if slug == "" {
+			slug = p.ID
+		}
+
+		// ensure unique filename
+		filename := filepath.Join(galleryDir, slug+".md")
+		uniqueFilename := filename
+		i := 1
+		for {
+			if _, err := os.Stat(uniqueFilename); os.IsNotExist(err) {
+				break
+			}
+			uniqueFilename = filepath.Join(galleryDir, fmt.Sprintf("%s-%d.md", slug, i))
+			i++
+		}
+
+		filename = uniqueFilename
+
+		date := p.DateTaken
+		if date == "" {
+			date = time.Now().Format("2006-01-02")
+		}
+
+		content := fmt.Sprintf(`---
 title: "%s"
 date: %s
 flickr_id: %s
-tags: [%s]
+gallery: %s
 thumbnail: %s
 image: %s
 ---
 
 %s
-`, escapeQuotes(p.Title), date, p.ID, strings.Join(quotedTags, ", "), chooseThumbnail(p), chooseImage(p), p.Description.Content)
+`, escapeQuotes(p.Title), date, p.ID, gallery, chooseThumbnail(p), chooseImage(p), p.Description.Content)
 
-	err := ioutil.WriteFile(filename, []byte(content), 0644)
-	if err != nil {
-		panic(err)
+		err = ioutil.WriteFile(filename, []byte(content), 0644)
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Println("Wrote:", filename)
 	}
-
-	fmt.Println("Wrote:", filename)
 }
 
 func escapeQuotes(s string) string {

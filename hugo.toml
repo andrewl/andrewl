@@ -1,4 +1,74 @@
-baseURL = 'https://example.org/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
-theme = 'hugo-simple'
+# Basic config
+baseURL = "https://www.andrewl.net"
+theme = "hugo-simple"
+defaultContentLanguage = "en"
+languageCode = "en"                # zh-Hans
+title = "Andrew L"
+copyright = "© 2025 Andrew L"
+mainSections = ["blog"]
+
+# Generate a nice robots.txt for SEO
+enableRobotsTXT = true
+
+# https://github.com/gohugoio/hugo/issues/12152
+capitalizeListTitles = false
+
+# Generate "Bearblog"-like URLs !only!, see https://bearblog.dev/.
+disableKinds = ["taxonomy"]
+
+# ignoreErrors = ["error-disable-taxonomy"]
+[taxonomies]
+tag = "tags"
+
+[permalinks]
+blog = "/:slugorcontentbasename/"
+tags = "/blog/:slug"
+
+[markup.goldmark.renderer]
+unsafe = true
+[markup.tableOfContents]
+startLevel = 2
+endLevel = 3
+[markup.highlight]
+lineNos = true
+lineNumbersInTable = false
+noClasses = true
+style = "catppuccin-mocha"
+
+[params]
+title = "Hugo Simple"
+description = "Hugo Simple Demo"
+favicon = "images/favicon.png"
+dateFormat = "2006-01-02"
+hideMadeWithLine = false
+hideRSSLink = false
+
+[params.author]
+name = "Andrew Larcombe"
+email = "andrew@andrewl.net"
+fediverse = "@andrewl@mastodon.me.uk"
+
+[[menu.main]]
+name = "Photos"
+pageRef = "/photos/"
+weight = 20
+[[menu.main]]
+name = "Notes"
+pageRef = "/notes/"
+weight = 15 
+[[menu.main]]
+name = "Projects"
+pageRef = "/projects/"
+weight = 30 
+
+[services.rss]
+limit = 42
+
+[pagination]
+pagerSize = 16
+
+[outputs]
+# Generate RSS for home only.
+section = ["html"]
+taxonomy = ["html"]
+term = ["html"]

@@ -1,18 +1,11 @@
 {{ define "main" }}
   <article>
-    <figure>
-      <img src="{{ .Params.image }}" alt="{{ .Title }}">
-      {{ with .Params.flickr_id }}
-        <figcaption>
-          <a href="https://www.flickr.com/photo.gne?id={{ . }}" target="_blank" rel="noopener">
-            View on Flickr
-          </a>
-        </figcaption>
-      {{ end }}
-    </figure>
-    <div class="description">
-      {{ .Content }}
-    </div>
+    <h1>{{ .Title }}</h1>
+    <img src="{{ .Params.image }}" alt="{{ .Title }}">
+    <div class="description">{{ .Content }}</div>
+    {{ with .Params.flickr_id }}
+      <p><a href="https://www.flickr.com/photo.gne?id={{ . }}">View on Flickr</a></p>
+    {{ end }}
   </article>
 {{ end }}
 

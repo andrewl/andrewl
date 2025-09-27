@@ -1,0 +1,15 @@
+{{ define "main" }}
+  <h1>Gallery: {{ .Title }}</h1>
+  <p>section</p>
+  <div class="gallery">
+    {{ range .Pages }}
+      <div class="photo">
+        <a href="{{ .RelPermalink }}">
+          <img src="{{ .Params.thumbnail }}" alt="{{ .Title }}">
+        </a>
+        <p>{{ .Title }}</p>
+      </div>
+    {{ end }}
+  </div>
+{{ end }}
+
