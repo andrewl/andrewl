@@ -1,0 +1,44 @@
+{{ define "main" }}
+  <h1>Galleries</h1>
+
+  <div class="galleries">
+    {{ range .Data.Terms.Alphabetical }}
+      <div class="gallery-card">
+        <a href="{{ .Page.RelPermalink }}">
+          {{ $pages := .Pages }}
+          {{ if gt (len $pages) 0 }}
+            {{ $randomPage := index $pages (mod (now.UnixNano) (len $pages)) }}
+            <img src="{{ $randomPage.Params.image }}" alt="{{ .Page.Title }}">
+          {{ end }}
+          <h2>{{ .Page.Title }}</h2>
+          <p>{{ .Count }} photos</p>
+        </a>
+      </div>
+    {{ end }}
+  </div>
+
+  <style>
+    .galleries {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .gallery-card {
+      text-align: center;
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .gallery-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+    }
+    .gallery-card h2 {
+      margin: 0.2rem 0;
+    }
+  </style>
+{{ end }}
+
