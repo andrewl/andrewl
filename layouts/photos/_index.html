@@ -1,5 +1,8 @@
 {{ define "main" }}
 <h1>List Photo Galleries</h1>
+<p>HELLO from photos/_index.html</p>
+<p>Kind: {{ .Kind }}</p>
+<p>Sections: {{ len .Sections }}</p>
 <p>list</p>
 <div class="galleries">
   {{ range .Sections }}
