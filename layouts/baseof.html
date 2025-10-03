@@ -25,12 +25,9 @@
     </title>
 
     {{- partial "seo_tags.html" . -}}
-    <meta name="referrer" content="no-referrer-when-downgrade" />
 
-    {{ $simple := resources.Get "simple.css" }}
-    {{ $style := resources.Get "style.css" }}
-    {{ $css := slice $simple $style | resources.Concat "bundle.css" | minify }}
-    <link href="{{ $css.RelPermalink }}" rel="stylesheet" />
+    <link href="https://unpkg.com/papercss/dist/paper.min.css" rel="stylesheet">
+    <meta name="referrer" content="no-referrer-when-downgrade" />
 
     {{ with .Params.style }}
       {{ $extra := resources.Get . | minify }}
@@ -40,6 +37,28 @@
     {{ with .OutputFormats.Get "rss" -}}
       {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .RelPermalink $.Site.Title | safeHTML }}
     {{ end -}}
+
+
+<style>
+.list-container {
+      display: flex;
+      flex-wrap: wrap; /* allow items to wrap to the next line */
+      gap: 1rem;       /* spacing between items */
+      justify-content: center; /* center items horizontally */
+}
+
+main h1 {
+  text-align: center;
+  margin: 0.1rem;
+  margin-bottom: 0.3rem;
+}
+
+.main-class {
+  margin: 0.25rem;
+  margin-top: 2.5rem;
+}
+
+</style>
 
     {{ with .Site.Params.author.fediverse }}
       <meta name="fediverse:creator" content="{{ . }}" />
@@ -56,7 +75,8 @@
     <header>
       {{ partial "header.html" . }}
     </header>
-    <main>
+    <main class="main-class paper border">
+      <h1>{{ .Title }}</h1>
       {{ block "main" . }}{{ end }}
     </main>
     <footer>
@@ -67,6 +87,7 @@
     <!-- A partial to be overwritten by the user.
   Simply place a custom_body.html into
   your local /layouts/partials-directory -->
+
     {{- partial "custom_body.html" . -}}
   </body>
 </html>

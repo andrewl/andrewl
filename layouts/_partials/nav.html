@@ -1,0 +1,12 @@
+{{ $currentPage := . -}}
+<nav class="fixed">
+  <div class="collapsible">
+    <div class="collapsible-body">
+      <ul class="inline">
+{{ range .Site.Menus.main.ByWeight }}
+<li><a href="{{ .URL }}">{{ .Name }}</a></li>
+{{ end }}
+      </ul>
+    </div>
+  </div>
+</nav>
