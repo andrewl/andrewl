@@ -12,9 +12,9 @@
     {{ end }}
       {{ range .Paginator.Pages }}
        <div class="card shadow shadow-small" style="width: 20rem;">
-         {{ with .Params.image }}
-         <img src="{{ . }}" alt="Image for {{.}}">
-         {{ end }}
+        {{ with .Resources.Get "index.png" }}
+          <img src="{{ .RelPermalink }}" >
+        {{ end }}
 
         <div class="card-body">
           <h4 class="card-title">{{ .Title }}</h4>
@@ -24,6 +24,7 @@
          {{ with .Params.link }}
          <a href="{{ . }}" target="_blank" rel="noopener noreferrer">Open</a>
          {{ end }}
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
         </div>
       </div>
       {{ end }}

@@ -49,16 +49,8 @@ email = "andrew@andrewl.net"
 fediverse = "@andrewl@mastodon.me.uk"
 
 [[menu.main]]
-name = "Photos"
-pageRef = "/photos/"
-weight = 20
-[[menu.main]]
-name = "Notes"
-pageRef = "/notes/"
-weight = 15 
-[[menu.main]]
-name = "Projects"
-pageRef = "/projects/"
+name = "Things"
+pageRef = "/things/"
 weight = 30 
 
 [services.rss]
