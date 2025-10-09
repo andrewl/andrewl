@@ -3,7 +3,7 @@ baseURL = "https://www.andrewl.net"
 theme = "hugo-simple"
 defaultContentLanguage = "en"
 languageCode = "en"                # zh-Hans
-title = "Andrew L"
+title = ""
 copyright = "© 2025 Andrew L"
 mainSections = ["blog"]
 

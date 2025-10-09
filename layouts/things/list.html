@@ -1,0 +1,7 @@
+{{ define "main" }}
+  <content class="list-container">
+      {{ range .Pages }}
+      {{ partial "card.html" . }}
+      {{ end }}
+  </content>
+{{ end }}

@@ -1,0 +1,18 @@
+       <div class="card shadow shadow-small" style="width: 20rem;">
+        {{ with .Resources.Get "index.png" }}
+          {{ $image := .Fill "400x400" }}
+          <img src="{{ $image.RelPermalink }}" >
+        {{ end }}
+        <div class="card-body">
+          <h4 class="card-title">{{ .Title }}</h4>
+         {{ with .Params.description }}
+         <p class="card-text">{{ . }}</p>
+         {{ end }}
+         {{ with .Params.link }}
+         <p><a href="{{ . }}" target="_blank" rel="noopener noreferrer">Open</a></p>
+         {{ end }}
+         {{ with .Params.github }}
+         <p><a href="{{ . }}" target="_blank" rel="noopener noreferrer">Code</a></p>
+         {{ end }}
+        </div>
+      </div>
