@@ -20,10 +20,6 @@ disableKinds = ["taxonomy"]
 [taxonomies]
 tag = "tags"
 
-[permalinks]
-blog = "/:slugorcontentbasename/"
-tags = "/blog/:slug"
-
 [markup.goldmark.renderer]
 unsafe = true
 [markup.tableOfContents]
