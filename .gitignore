@@ -1,3 +1,5 @@
 content/photos
 content/photos/*
 public/*
+.hugo_build.lock
+resources/_gen/*
