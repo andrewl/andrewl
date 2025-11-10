@@ -1,6 +1,6 @@
 # Basic config
 baseURL = "https://www.andrewl.net"
-theme = "hugo-simple"
+theme = "paper"
 defaultContentLanguage = "en"
 languageCode = "en"                # zh-Hans
 title = ""

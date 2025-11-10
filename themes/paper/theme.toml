@@ -1,0 +1,7 @@
+name = "paper"
+license = "MIT"
+licenselink = "https://opensource.org/licenses/MIT"
+description = "Paper Theme for andrewl.net"
+homepage = "https://andrewl.net"
+tags = ["simple", "paper"]
+min_version = "0.110.0"

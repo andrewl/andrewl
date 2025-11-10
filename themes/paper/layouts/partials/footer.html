@@ -1,0 +1,10 @@
+{{ with .Site.Copyright }}
+  <span>{{ . }}</span>
+{{ end }}
+{{ if not .Site.Params.hideMadeWithLine }}
+  <span>
+    {{ if .Site.Copyright }}|{{ end }}
+    {{ T "made_with" }}
+    <a target="_other" href="https://www.getpapercss.com/">Paper CSS</a>
+  </span>
+{{ end }}

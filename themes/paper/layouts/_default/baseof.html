@@ -14,7 +14,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {{- partial "favicon.html" . -}}
+    {{ with .Site.Params.favicon }}
+      <link rel="shortcut icon" href="{{ relURL . }}" />
+    {{ end }}
     <title>
       {{- block "title" . -}}
         {{- if not .IsHome -}}
@@ -24,7 +26,9 @@
       {{- end -}}
     </title>
 
-    {{- partial "seo_tags.html" . -}}
+
+    {{- partial "content_tags.html" . -}}
+
 
     <link href="https://unpkg.com/papercss/dist/paper.min.css" rel="stylesheet">
     <meta name="referrer" content="no-referrer-when-downgrade" />
@@ -62,19 +66,17 @@ main p {
   margin-top: 2.5rem;
 }
 
-
+footer {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
 
 </style>
 
     {{ with .Site.Params.author.fediverse }}
       <meta name="fediverse:creator" content="{{ . }}" />
     {{ end }}
-
-
-    <!-- A partial to be overwritten by the user.
-  Simply place a custom_head.html into
-  your local /layouts/partials-directory -->
-    {{- partial "custom_head.html" . -}}
   </head>
 
   <body>
@@ -84,17 +86,10 @@ main p {
     <main class="main-class paper border">
       <h1>{{ .Title }}</h1>
       {{ block "main" . }}{{ end }}
+      <footer>
+        {{ partial "footer.html" . }}
+      </footer>
     </main>
-    <footer>
-      {{ partial "custom_footer.html" . }}
-      {{ partial "footer.html" . }}
-    </footer>
-
-    <!-- A partial to be overwritten by the user.
-  Simply place a custom_body.html into
-  your local /layouts/partials-directory -->
-
-    {{- partial "custom_body.html" . -}}
   </body>
 </html>
 {{ end }}
