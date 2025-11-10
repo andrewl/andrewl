@@ -4,7 +4,8 @@
 {{ if not .Site.Params.hideMadeWithLine }}
   <span>
     {{ if .Site.Copyright }}|{{ end }}
-    {{ T "made_with" }}
+    Made with
+    <a target="_other" href="https://www.gohugo.io/">Hugo</a> and
     <a target="_other" href="https://www.getpapercss.com/">Paper CSS</a>
   </span>
 {{ end }}

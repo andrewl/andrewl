@@ -4,15 +4,24 @@
           <img src="{{ $image.RelPermalink }}" >
         {{ end }}
         <div class="card-body">
-          <h4 class="card-title">{{ .Title }}</h4>
-         {{ with .Params.description }}
-         <p class="card-text">{{ . }}</p>
-         {{ end }}
-         {{ with .Params.link }}
-         <p><a href="{{ . }}" target="_blank" rel="noopener noreferrer">Open</a></p>
-         {{ end }}
-         {{ with .Params.github }}
-         <p><a href="{{ . }}" target="_blank" rel="noopener noreferrer">Code</a></p>
-         {{ end }}
+          {{ $haslink := or .Params.link .Params.github }}
+          {{ if $haslink }}
+            <h4 class="card-title">{{ .Title }}</h4>
+          {{ else }}
+            <h4 class="card-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
+          {{ end }}
+          {{ with .Params.description }}
+            <p class="card-text">{{ . }}</p>
+          {{ end }}
+          {{ with .Params.link }}
+            <p><a href="{{ . }}" target="_blank" rel="noopener noreferrer">Open</a></p>
+          {{ end }}
+          {{ with .Params.github }}
+            <p><a href="{{ . }}" target="_blank" rel="noopener noreferrer">Code</a></p>
+          {{ end }}
+          {{ if $haslink }}
+          {{ else }}
+            <p><a href="{{ .RelPermalink }}" target="_blank" rel="noopener noreferrer">Open</a></p>
+          {{ end }}
         </div>
-      </div>
+       </div>

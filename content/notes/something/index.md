@@ -3,6 +3,7 @@ date = '2025-09-29T20:00:13+01:00'
 draft = false
 title = 'Something something'
 image = "https://placehold.net/3-800x600.png"
+description = "foo-bar dsad asdadasddas"
 +++
 
 Ullam sit voluptate quidem unde libero quos omnis. Unde consectetur deserunt ea et temporibus. Sed commodi expedita qui et. Rerum sed expedita voluptatibus rem rerum culpa. Eius ut et eum voluptates sit dolor dolor reiciendis.
