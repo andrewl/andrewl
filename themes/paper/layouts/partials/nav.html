@@ -1,11 +1,17 @@
 {{ $currentPage := . -}}
 <nav class="border fixed split-nav">
   <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <label for="collapsible1">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+    </label>
     <div class="collapsible-body">
       <ul class="inline">
-{{ range .Site.Menus.main.ByWeight }}
-<li><a href="{{ .URL }}">{{ .Name }}</a></li>
-{{ end }}
+        {{ range .Site.Menus.main.ByWeight }}
+        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+        {{ end }}
       </ul>
     </div>
   </div>
