@@ -1,3 +1,3 @@
 +++
-title = "Thingssssss"
+title = "Things"
 +++

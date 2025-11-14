@@ -1,9 +1,9 @@
 {{ define "main" }}
-<main>
+<content class="single">
   {{ with .Resources.Get "index.png" }}
     {{ $image := .Fill "400x400" }}
     <img src="{{ .RelPermalink }}" >
   {{ end }}
   {{ .Content }}
-</main>
+</content>
 {{ end }}

@@ -1,8 +1,19 @@
-{{ if .Title }}
-  <figure>
-    <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}">
-    <figcaption>{{ .Title }}</figcaption>
+{{- $src := .Destination -}}
+{{- $alt := .Text | default "Image" -}}
+
+{{- with .Page.Resources.GetMatch (printf "**%s" $src) -}}
+  {{- $resized := .Resize "800x webp q80" -}}
+  <figure data-full="{{ $src | safeURL }}"
+    {{ with $.Title }}
+      data-caption="{{ . }}"
+    {{ end }}
+    >
+    <img loading="lazy" src="{{ $resized.RelPermalink }}" alt="{{ $alt }}">
+    {{ with $.Title }}
+      <figcaption>{{ . }}</figcaption>
+    {{ end }}
   </figure>
-{{ else }}
-  <img src="{{ .Destination | safeURL }}" alt="{{ .Text }}">
-{{ end }}
+{{- else -}}
+  {{/* Fallback if image isn’t a Page Resource */}}
+  <img src="{{ $src | safeURL }}" alt="{{ $alt }}">
+{{- end -}}

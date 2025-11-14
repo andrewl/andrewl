@@ -1,0 +1,8 @@
+{{- /* trim leading whitespace */ -}}
+<figure data-full="{{ .Get "large" }}" data-caption="{{ .Get "title" }}">
+<img loading="lazy" src="{{ .Get "medium" }}" alt="{{ .Get "title" }}">
+{{ with .Get "title" }}
+<figcaption>{{ . }}</figcaption>
+{{ end }}
+</figure>
+{{- /* trim trailing whitespace */ -}}

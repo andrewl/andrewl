@@ -87,4 +87,4 @@ During the next sprint you can keep these in mind by adding them as a ‘subtitl
 
 I’ve run retrospectives using this format with both remote and co-located teams and it’s a great way to keep retrospectives focused, tight and interactive.
 
-This article was originally published at https://wunder.io/blog/quick-easy-agile-retrospective
+This article was originally published at https://wunder.io/en/insights/quickest-easiest-and-most-effective-agile-retrospective-ever

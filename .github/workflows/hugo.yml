@@ -52,10 +52,10 @@ jobs:
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
           HUGO_ENVIRONMENT: production
-        run: |
-          hugo \
-            --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"
+          BASEURL: "${{ steps.pages.outputs.base_url }}/"
+          FLICKR_API_KEY: "${{ secrets.FLICKR_API_KEY }}"
+          FLICKR_USER_ID: "${{ secrets.FLICKR_USER_ID }}"
+        run: make build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

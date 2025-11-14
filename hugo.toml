@@ -54,6 +54,11 @@ name = "Notes"
 pageRef = "/notes/"
 weight = 40 
 
+[[menu.main]]
+name = "Photos"
+pageRef = "/photos/"
+weight = 50 
+
 [services.rss]
 limit = 42
 

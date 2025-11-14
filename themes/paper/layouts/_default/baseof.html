@@ -29,6 +29,63 @@
 
     {{- partial "content_tags.html" . -}}
 
+<style>
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+</style>
+
 
     <link href="https://unpkg.com/papercss/dist/paper.min.css" rel="stylesheet">
     <meta name="referrer" content="no-referrer-when-downgrade" />
@@ -44,6 +101,27 @@
 
 
 <style>
+
+html {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.paper {
+  background-color: #FAF9F6;
+}
+nav {
+  background-color: #FAF9F6;
+}
+
+h1, h2, h3, h4 {
+  line-height: 0.75em;
+}
+
+div.nav-brand {
+  min-height: 2em;
+}
+
 .list-container {
       display: flex;
       flex-wrap: wrap; /* allow items to wrap to the next line */
@@ -54,7 +132,7 @@
 main h1 {
   text-align: center;
   margin: 0.1rem;
-  margin-bottom: 0.3rem;
+  margin-bottom: 2rem;
 }
 
 main p {
@@ -65,7 +143,7 @@ main img, main figcaption {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 75%;
+  width: 60%;
   text-align: center;
 }
 
@@ -75,13 +153,151 @@ main img {
 
 .main-class {
   margin: 0.25rem;
-  margin-top: 2.5rem;
+  margin-top: 3rem;
 }
 
 footer {
   text-align: center;
   margin-top: 2rem;
   margin-bottom: 1rem;
+}
+
+div.card img {
+  height: 12rem;
+  width: 16rem;
+  object-fit: cover;
+  padding-top: 1rem;
+}
+
+</style>
+<style>
+/* ---- Base & gallery ---- */
+body {
+  margin: 0;
+  background: #84bfff;
+}
+
+figure {
+  margin: 0;
+  cursor: pointer;
+  position: relative;
+}
+
+figcaption {
+  padding: 4px 2px;
+  font-size: 0.85rem;
+  text-align: center;
+  color: #444;
+}
+
+/* ---- Lightbox ---- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+  z-index: 999;
+}
+
+.lightbox.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Container to hold image + caption overlay */
+.lightbox-content {
+  position: relative;
+  display: inline-block;
+  max-width: 90vw;
+  max-height: 80vh;
+}
+
+.lightbox-img {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  display: block;
+  border-radius: 4px;
+  background: #111;
+  transition: opacity 0.3s ease;
+}
+
+/* ✅ Caption overlay */
+.lightbox-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 1rem;
+  text-align: center;
+  padding: 10px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Close button */
+.lightbox-close {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Arrows */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  padding: 0 10px;
+}
+.arrow.left  { left: 20px; }
+.arrow.right { right: 20px; }
+
+/* Small screens: slightly larger captions and tap area */
+@media (max-width: 480px) {
+  .lightbox-caption {
+    font-size: 1.1rem;
+    padding: 12px;
+  }
+  .arrow {
+    font-size: 2.5rem;
+  }
+}
+</style>
+
+<style>
+
+/* Specific styles for photo posts */
+
+
+body.photo main img {
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+}
+
+body.photo content {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(240px, 1fr));
 }
 
 </style>
@@ -91,7 +307,11 @@ footer {
     {{ end }}
   </head>
 
-  <body>
+<body class="
+{{- if .IsHome}}home{{ end -}}
+{{- if eq .Kind `page` }}{{ .Section | singularize }}{{ else }}{{ .Section }}{{ end -}}
+{{- if and (eq .Type `page`) (ne .IsHome true) }}page{{ end -}}
+">
     <header>
       {{ partial "header.html" . }}
     </header>
@@ -101,7 +321,65 @@ footer {
       <footer>
         {{ partial "footer.html" . }}
       </footer>
-    </main>
+    </main> 
+<div id="lightbox" class="lightbox">
+  <span class="lightbox-close">&times;</span>
+  <span class="arrow left">&#10094;</span>
+
+  <div class="lightbox-content">
+    <img class="lightbox-img" alt="">
+    <div class="lightbox-caption"></div>
+  </div>
+
+  <span class="arrow right">&#10095;</span>
+</div>
+
   </body>
+    <script>
+const items = Array.from(document.querySelectorAll("main figure"));
+const lightbox = document.getElementById("lightbox");
+const lbImg = document.querySelector(".lightbox-img");
+const lbCaption = document.querySelector(".lightbox-caption");
+const closeBtn = document.querySelector(".lightbox-close");
+const arrowLeft = document.querySelector(".arrow.left");
+const arrowRight = document.querySelector(".arrow.right");
+
+let index = 0;
+
+function openLightbox(i) {
+  index = i;
+  const item = items[i];
+  lbImg.src = item.getAttribute("data-full");
+  lbCaption.textContent = item.getAttribute("data-caption") || "";
+  lightbox.classList.add("open");
+}
+
+function closeLightbox() {
+  lightbox.classList.remove("open");
+}
+
+function nav(dir) {
+  index = (index + dir + items.length) % items.length;
+  openLightbox(index);
+}
+
+items.forEach((fig, i) => {
+  fig.addEventListener("click", () => openLightbox(i));
+});
+
+closeBtn.addEventListener("click", closeLightbox);
+lightbox.addEventListener("click", (e) => {
+  if (e.target === lightbox) closeLightbox();
+});
+arrowLeft.addEventListener("click", () => nav(-1));
+arrowRight.addEventListener("click", () => nav(1));
+
+document.addEventListener("keydown", (e) => {
+  if (!lightbox.classList.contains("open")) return;
+  if (e.key === "Escape") closeLightbox();
+  if (e.key === "ArrowLeft") nav(-1);
+  if (e.key === "ArrowRight") nav(1);
+});
+</script>
 </html>
 {{ end }}
