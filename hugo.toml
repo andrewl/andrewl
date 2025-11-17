@@ -13,8 +13,9 @@ enableRobotsTXT = true
 # https://github.com/gohugoio/hugo/issues/12152
 capitalizeListTitles = false
 
-# Generate "Bearblog"-like URLs !only!, see https://bearblog.dev/.
 disableKinds = ["taxonomy"]
+
+ignoreFiles = ["^notes/", "^content/"]
 
 # ignoreErrors = ["error-disable-taxonomy"]
 [taxonomies]
@@ -22,9 +23,11 @@ tag = "tags"
 
 [markup.goldmark.renderer]
 unsafe = true
+
 [markup.tableOfContents]
 startLevel = 2
 endLevel = 3
+
 [markup.highlight]
 lineNos = true
 lineNumbersInTable = false
@@ -32,15 +35,15 @@ noClasses = true
 style = "catppuccin-mocha"
 
 [params]
-title = "Hugo Simple"
-description = "Hugo Simple Demo"
+title = "Andrew's Site"
+description = "Andrew's Site"
 favicon = "images/favicon.png"
 dateFormat = "2006-01-02"
 hideMadeWithLine = false
 hideRSSLink = false
 
 [params.author]
-name = "Andrew Larcombe"
+name = "Andrew L"
 email = "andrew@andrewl.net"
 fediverse = "@andrewl@mastodon.me.uk"
 
@@ -49,24 +52,8 @@ name = "Things"
 pageRef = "/things/"
 weight = 30 
 
-[[menu.main]]
-name = "Notes"
-pageRef = "/notes/"
-weight = 40 
-
-[[menu.main]]
-name = "Photos"
-pageRef = "/photos/"
-weight = 50 
-
 [services.rss]
 limit = 42
 
 [pagination]
 pagerSize = 16
-
-[outputs]
-# Generate RSS for home only.
-section = ["html"]
-taxonomy = ["html"]
-term = ["html"]

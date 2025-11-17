@@ -31,7 +31,7 @@ dev:
 
 # Build production site
 .PHONY: build
-build: photos
+build: 
 	@echo "Building Hugo site..."
 	hugo --minify --baseURL "${BASEURL:?BASEURL not set}"
 

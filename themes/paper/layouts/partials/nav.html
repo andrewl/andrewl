@@ -1,4 +1,5 @@
 {{ $currentPage := . -}}
+{{ if gt (len .Site.Menus.main) 1 }}
 <nav class="border fixed split-nav">
   <div class="nav-brand">
     <h3><a href="#"></a></h3>
@@ -19,3 +20,4 @@
     </div>
   </div>
 </nav>
+{{ end }}

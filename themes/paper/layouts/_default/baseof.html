@@ -156,6 +156,12 @@ main img {
   margin-top: 3rem;
 }
 
+{{ if eq (len .Site.Menus.main) 1 }}
+.main-class {
+  margin-top: 0.5rem;
+}
+{{ end }}
+
 footer {
   text-align: center;
   margin-top: 2rem;
