@@ -319,7 +319,7 @@ body.photo content {
 {{- if and (eq .Type `page`) (ne .IsHome true) }}page{{ end -}}
 ">
     <header>
-      {{ partial "header.html" . }}
+      {{ partial "nav.html" . }}
     </header>
     <main class="main-class paper border">
       <h1>{{ .Title }}</h1>
